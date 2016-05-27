@@ -1,6 +1,9 @@
-import Html exposing (Html, button, div, text, node)
+import Html exposing (..)
 import Html.App as Html
 import Html.Events exposing (onClick)
+
+
+
 
 
 
@@ -18,8 +21,11 @@ view model =
     
     div [] 
     [
-        button [onClick Decrement] [text "-"]
-        ,div [] [text (toString model)]
+        div [] [
+            label [] [text "Current Value: "],
+            text (toString model)
+            ]
+        ,button [onClick Decrement] [text "-"]
         ,button [onClick Increment] [text "+"]
         ,button [onClick Reset] [text "Reset"]
     ]     
