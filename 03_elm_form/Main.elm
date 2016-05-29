@@ -1,7 +1,12 @@
+module Main exposing (..)
+
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.App as App
 import Html.Events exposing (onInput)
+import PasswordValidation exposing (..)
+
+
 
 main =   
     App.beginnerProgram {model = model, update = update, view = view}
@@ -36,7 +41,8 @@ view model =
         input [type' "text", placeholder "Name", onInput Name] [],
         input [type' "text", placeholder "Password", onInput Password] [],
         input [type' "text", placeholder "Re-Enter Password", onInput PasswordAgain] [],
-        viewValidation model
+        viewValidation model,
+        passwordValidation model
     ] 
 
 viewValidation : Model -> Html Msg
@@ -49,3 +55,11 @@ viewValidation model =
     in 
     div [ style [("color", color)]] [ text message ]
     
+passwordValidation : Model -> Html Msg
+passwordValidation model = 
+    let (color, message) = 
+        case (validatePassword model.password) of 
+        Result.Ok _ -> ("green", "OK")
+        Result.Err msg -> ("red", msg)
+    in
+    div [style [("color", color)]] [text message]
