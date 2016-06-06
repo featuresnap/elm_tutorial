@@ -58,8 +58,8 @@ viewValidation model =
 passwordValidation : Model -> Html Msg
 passwordValidation model = 
     let (color, message) = 
-        case (validatePassword model.password) of 
-        Result.Ok _ -> ("green", "OK")
-        Result.Err msg -> ("red", msg)
+        case (validate model.password) of 
+        Result.Ok pwd -> ("green", "OK")
+        Result.Err msgs -> ("red", "Some problem")
     in
     div [style [("color", color)]] [text message]

@@ -45,9 +45,9 @@ ruleReducer nextResult currentResults=
 allRules : List Rule
 allRules = [validateLength, validateLower, validateUpper, validateNumber]
 
-validate : String -> List Rule -> RulesResult
-validate password rules = 
-    rules 
+validate : String -> RulesResult
+validate password = 
+    allRules 
     |> List.map (\rule -> rule password)
     |> List.foldl ruleReducer (Ok password)
     
