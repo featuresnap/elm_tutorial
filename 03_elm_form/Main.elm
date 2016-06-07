@@ -11,7 +11,6 @@ import PasswordValidation exposing (..)
 main =   
     App.beginnerProgram {model = model, update = update, view = view}
 
-
 type alias Model = {
     name : String,
     password : String,
