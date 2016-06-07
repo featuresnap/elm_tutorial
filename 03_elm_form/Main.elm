@@ -38,12 +38,12 @@ view model =
         input [type' "text", placeholder "Name", onInput Name] [],
         input [type' "text", placeholder "Password", onInput Password] [],
         input [type' "text", placeholder "Re-Enter Password", onInput PasswordAgain] [],
-        viewValidation model,
-        passwordValidation model
+        passwordMatchValidation model,
+        passwordContentValidation model
     ] 
 
-viewValidation : Model -> Html Msg
-viewValidation model = 
+passwordMatchValidation : Model -> Html Msg
+passwordMatchValidation model = 
     let (color, message) = 
         if model.password == model.passwordAgain then
             ("green", "OK")
@@ -52,11 +52,19 @@ viewValidation model =
     in 
     div [ style [("color", color)]] [ text message ]
     
-passwordValidation : Model -> Html Msg
-passwordValidation model = 
-    let (color, message) = 
-        case (validate model.password) of 
-        Result.Ok pwd -> ("green", "OK")
-        Result.Err msgs -> ("red", "Some problem")
+passwordContentValidation : Model -> Html Msg
+passwordContentValidation model = 
+    let 
+        contentResults = validate model.password
+        color = case contentResults of 
+            Ok _ -> "green"
+            _ -> "red"
+        msgs = case contentResults of
+            Ok _ -> 
+            [
+                p [] [text "OK"]
+            ]
+            Err errors -> 
+                errors |> List.map (\msg -> p [] [text msg])
     in
-    div [style [("color", color)]] [text message]
+    div [style [("color", color)]] msgs
