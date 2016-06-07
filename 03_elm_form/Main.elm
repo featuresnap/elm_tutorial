@@ -4,9 +4,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.App as App
 import Html.Events exposing (onInput)
-import PasswordValidation exposing (..)
-
-
+import Util.PasswordValidation exposing (..)
 
 main =   
     App.beginnerProgram {model = model, update = update, view = view}

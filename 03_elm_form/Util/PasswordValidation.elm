@@ -1,4 +1,4 @@
-module PasswordValidation exposing (..)
+module Util.PasswordValidation exposing (validate)
 
 import String exposing (length, toUpper, toLower)
 import Regex exposing (regex)
@@ -6,14 +6,6 @@ import Regex exposing (regex)
 type alias RuleResult = Result String String
 type alias RulesResult = Result (List String) String 
 type alias Rule = String -> RuleResult
-
-validatePassword : String -> Result String String
-validatePassword password = 
-    if (length password) < 8 then
-        Err "Password too short."
-    else if password == (toUpper password) then 
-        Err "Password must contain lowercase"
-    else Ok password 
     
 minimumLength : Rule
 minimumLength password = 
